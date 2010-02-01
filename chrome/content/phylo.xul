@@ -6,7 +6,9 @@
 	title		= "Phylo"
 	wait-cursor	= "false"
 	hidechrome	= "true"
->
+	onload		= "activateFullscreen()"
+	>
+	<script type="application/x-javascript" src="phylo.js"/>
 	<hbox flex = "1">
 		<iframe
 			id		= "webframe"
