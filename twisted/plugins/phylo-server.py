@@ -4,7 +4,6 @@
 # $Id$
 
 import os, sys
-sys.path.append('.')
 
 from zope.interface import implements
 
@@ -16,8 +15,6 @@ from twisted.web import server, wsgi
 
 from modu.web import app
 from modu.persist import dbapi
-
-from phylo import xul
 
 class XULRunnerProtocol(protocol.ProcessProtocol):
 	debug = True
@@ -65,21 +62,23 @@ class PhyloServiceMaker(object):
 		web_service = internet.TCPServer(config['port'], site, interface=config['interface'])
 		web_service.setServiceParent(master_service)
 		
-		firefox_path = config['firefox-path']
-		if(not firefox_path):
-			firefox_path = "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+		def _spawner():
+			firefox_path = config['firefox-path']
+			if(not firefox_path):
+				firefox_path = "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+			
+			log.err(sys.path)
+			from phylo import xul
+			app_path = os.path.join(os.path.dirname(xul.__file__), 'application.ini')
+			
+			xul_cmd = [firefox_path, '-app', app_path]
+			if(config['debug-js']):
+				xul_cmd.append('-jconsole')
+			
+			log.err(' '.join(xul_cmd))
+			reactor.spawnProcess(XULRunnerProtocol(), firefox_path, xul_cmd)
 		
-		app_path = os.path.join(os.path.dirname(xul.__file__), 'application.ini')
-		
-		xul_cmd = [firefox_path, '-app', app_path]
-		if(config['debug-js']):
-			xul_cmd.append('-jconsole')
-		
-		def _spawner(path, cmd):
-			log.err(' '.join(cmd))
-			reactor.spawnProcess(XULRunnerProtocol(), path, cmd)
-		
-		reactor.callLater(1, _spawner, firefox_path, xul_cmd)
+		reactor.callLater(1, _spawner)
 		
 		return master_service
 
