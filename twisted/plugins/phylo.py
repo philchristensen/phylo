@@ -4,6 +4,7 @@
 # $Id$
 
 import os, sys
+sys.path.append('.')
 
 from zope.interface import implements
 
@@ -15,6 +16,8 @@ from twisted.web import server, wsgi
 
 from modu.web import app
 from modu.persist import dbapi
+
+from phylo import xul
 
 class XULRunnerProtocol(protocol.ProcessProtocol):
 	debug = True
@@ -66,10 +69,17 @@ class PhyloServiceMaker(object):
 		if(not firefox_path):
 			firefox_path = "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
 		
-		xul_cmd = [firefox_path, '-app', app_path, destination]
+		app_path = os.path.join(os.path.dirname(xul.__file__), 'application.ini')
+		
+		xul_cmd = [firefox_path, '-app', app_path]
 		if(config['debug-js']):
 			xul_cmd.append('-jconsole')
-		reactor.spawnProcess(XULRunnerProtocol(), firefox_path, xul_cmd)
+		
+		def _spawner(path, cmd):
+			log.err(' '.join(cmd))
+			reactor.spawnProcess(XULRunnerProtocol(), path, cmd)
+		
+		reactor.callLater(1, _spawner, firefox_path, xul_cmd)
 		
 		return master_service
 
