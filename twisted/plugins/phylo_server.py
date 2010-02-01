@@ -62,23 +62,18 @@ class PhyloServiceMaker(object):
 		web_service = internet.TCPServer(config['port'], site, interface=config['interface'])
 		web_service.setServiceParent(master_service)
 		
-		def _spawner():
-			firefox_path = config['firefox-path']
-			if(not firefox_path):
-				firefox_path = "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
-			
-			log.err(sys.path)
-			from phylo import xul
-			app_path = os.path.join(os.path.dirname(xul.__file__), 'application.ini')
-			
-			xul_cmd = [firefox_path, '-app', app_path]
-			if(config['debug-js']):
-				xul_cmd.append('-jconsole')
-			
-			log.err(' '.join(xul_cmd))
-			reactor.spawnProcess(XULRunnerProtocol(), firefox_path, xul_cmd)
+		firefox_path = config['firefox-path']
+		if(not firefox_path):
+			firefox_path = "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
 		
-		reactor.callLater(1, _spawner)
+		from phylo import xul
+		app_path = os.path.join(os.path.dirname(xul.__file__), 'application.ini')
+		
+		xul_cmd = [firefox_path, '-app', app_path]
+		if(config['debug-js']):
+			xul_cmd.append('-jconsole')
+		
+		reactor.callLater(1, lambda: reactor.spawnProcess(XULRunnerProtocol(), firefox_path, xul_cmd))
 		
 		return master_service
 

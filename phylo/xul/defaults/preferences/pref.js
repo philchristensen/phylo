@@ -1,1 +1,1 @@
-pref("toolkit.defaultChromeURI", "chrome://phylo/content/phylo.xul");
+pref("toolkit.defaultChromeURI", "chrome://phylo/content/fullscreen.xul");
