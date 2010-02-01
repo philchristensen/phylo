@@ -1,0 +1,1 @@
+pref("toolkit.defaultChromeURI", "chrome://phylo/content/phylo.xul");
