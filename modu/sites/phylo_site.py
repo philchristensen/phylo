@@ -20,14 +20,9 @@ from phylo.resource import index
 class Site(object):
 	classProvides(plugin.IPlugin, app.ISite)
 	
-	def configure_request(self, req):
-		compiled_template_root = os.path.join(req.approot, 'var')
-		if(os.path.exists(compiled_template_root)):
-			req.app.config['compiled_template_root'] = compiled_template_root
-	
 	def initialize(self, application):
 		application.base_domain = 'localhost'
-		application.db_url = 'MySQLdb://phylo@localhost/phylo'
+		application.db_url = 'sqlite3://localhost/phylodb'
 		
 		import phylo
 		compiled_template_root = os.path.abspath(os.path.join(os.path.dirname(phylo.__file__), '../var'))

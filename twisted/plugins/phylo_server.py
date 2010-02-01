@@ -1,5 +1,5 @@
-# DRAM
-# Copyright (C) 2007 Anthology of Recorded Music, Inc.
+# phylo
+# Copyright (C) 2010 Phil Christensen
 #
 # $Id$
 
@@ -16,21 +16,7 @@ from twisted.web import server, wsgi
 from modu.web import app
 from modu.persist import dbapi
 
-class XULRunnerProtocol(protocol.ProcessProtocol):
-	debug = True
-	
-	def connectionMade(self):
-		log.msg('%r connection made' % self)
-	
-	def outReceived(self, data):
-		pass
-	
-	def errReceived(self, data):
-		log.msg('%r stderr: %s' % (self, data))
-	
-	def processEnded(self, status):
-		log.msg('%r process ended' % self)
-		reactor.stop()
+from phylo import xul
 
 class PhyloServiceMaker(object):
 	implements(service.IServiceMaker, IPlugin)
@@ -62,18 +48,7 @@ class PhyloServiceMaker(object):
 		web_service = internet.TCPServer(config['port'], site, interface=config['interface'])
 		web_service.setServiceParent(master_service)
 		
-		firefox_path = config['firefox-path']
-		if(not firefox_path):
-			firefox_path = "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
-		
-		from phylo import xul
-		app_path = os.path.join(os.path.dirname(xul.__file__), 'application.ini')
-		
-		xul_cmd = [firefox_path, '-app', app_path]
-		if(config['debug-js']):
-			xul_cmd.append('-jconsole')
-		
-		reactor.callLater(1, lambda: reactor.spawnProcess(XULRunnerProtocol(), firefox_path, xul_cmd))
+		xul.launch(config['firefox-path'], config['debug-js'])
 		
 		return master_service
 
