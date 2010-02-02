@@ -35,6 +35,7 @@ class PhyloServiceMaker(object):
 	
 		optFlags =		[["debug-js", "j", "Open JavaScript console."],
 						 ["debug-db", "d", "Turn on dbapi debugging."],
+						 ["no-xul", "X", "Don't open XUL interface."],
 						]
 	
 	def makeService(self, config):
@@ -48,7 +49,8 @@ class PhyloServiceMaker(object):
 		web_service = internet.TCPServer(config['port'], site, interface=config['interface'])
 		web_service.setServiceParent(master_service)
 		
-		xul.launch(config['firefox-path'], config['debug-js'])
+		if not(config['no-xul']):
+			xul.launch(config['firefox-path'], config['debug-js'])
 		
 		return master_service
 
