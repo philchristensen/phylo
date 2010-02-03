@@ -18,10 +18,10 @@ from modu.persist import dbapi
 
 from phylo import xul
 
-class PhyloServiceMaker(object):
+class PhyloFrontendServiceMaker(object):
 	implements(service.IServiceMaker, IPlugin)
-	tapname = "phylo"
-	description = "Run a Phylo media server."
+	tapname = "phylo-frontend"
+	description = "Run a Phylo front-end server."
 	
 	class options(usage.Options):
 		"""
@@ -54,4 +54,4 @@ class PhyloServiceMaker(object):
 		
 		return master_service
 
-serviceMaker = PhyloServiceMaker()
+serviceMaker = PhyloFrontendServiceMaker()
