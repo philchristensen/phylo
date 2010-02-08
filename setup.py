@@ -42,16 +42,16 @@ def autosetup():
 		scripts 		= [],
 		app				= ['bootstrap.py'],
 		zip_safe		= False,
-	
+		
 		install_requires 		= ['modu'],
 		include_package_data 	= True,
-	
+		
 		package_data = {
 			''			: ['ChangeLog', 'ez_setup.py', 'INSTALL', 'LICENSE', 'README'],
 			'twisted'	: ['plugins/modu_web.py'],
 			'modu'		: ['sites/phylo_site.py'],
 		},
-	
+		
 		options			= dict(
 			py2app			= dict(
 				iconfile		= 'webroot/images/phylo.icns',
@@ -62,7 +62,7 @@ def autosetup():
 				),
 			),
 		),
-	
+		
 		# metadata for upload to PyPI
 		author = "Phil Christensen",
 		author_email = "phil@bubblehouse.org",
