@@ -5,20 +5,17 @@
 
 import os
 
+import pkg_resources as pkg
+
 from twisted.python import log
 from twisted.internet import protocol, reactor
 
-def launch(firefox_path=None, debug_js=False):
-	if(not firefox_path):
-		firefox_path = "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
-	
-	app_path = os.path.join(os.path.dirname(__file__), 'application.ini')
-	
-	xul_cmd = [firefox_path, '-app', app_path]
-	if(debug_js):
-		xul_cmd.append('-jconsole')
-	
-	reactor.callLater(1, lambda: reactor.spawnProcess(LauncherProtocol(), firefox_path, xul_cmd))
+def launch():
+	open_path = '/usr/bin/open'
+	app_bundle = pkg.resource_filename('phylo.xul', 'Phylo.app')
+	command = [open_path, '-a', app_bundle, '-W']
+	print ' '.join(command)
+	reactor.callLater(1, lambda: reactor.spawnProcess(LauncherProtocol(), open_path, command))
 
 class LauncherProtocol(protocol.ProcessProtocol):
 	debug = True

@@ -30,11 +30,9 @@ class PhyloFrontendServiceMaker(object):
 		optParameters = [["port", "p", 8888, "Port to use for web server.", int],
 						 ['interface', 'i', '', 'Interface to listen on.'],
 						 ['accesslog', 'a', None, 'Path to access log.'],
-						 ['firefox-path', 'f', None, 'Path to firefox-bin.'],
 						]
 	
-		optFlags =		[["debug-js", "j", "Open JavaScript console."],
-						 ["debug-db", "d", "Turn on dbapi debugging."],
+		optFlags =		[["debug-db", "d", "Turn on dbapi debugging."],
 						 ["no-xul", "X", "Don't open XUL interface."],
 						]
 	
@@ -50,7 +48,7 @@ class PhyloFrontendServiceMaker(object):
 		web_service.setServiceParent(master_service)
 		
 		if not(config['no-xul']):
-			xul.launch(config['firefox-path'], config['debug-js'])
+			xul.launch()
 		
 		return master_service
 
