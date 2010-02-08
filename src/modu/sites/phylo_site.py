@@ -25,6 +25,7 @@ class Site(object):
 		application.db_url = 'sqlite3://localhost/phylodb'
 		application.admin_calc_found_rows = False
 		application.use_db_locks = False
+		application.template_dir = 'phylo', 'template'
 		
 		import phylo
 		compiled_template_root = os.path.abspath(os.path.join(os.path.dirname(phylo.__file__), '../var'))
