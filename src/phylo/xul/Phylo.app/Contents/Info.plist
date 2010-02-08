@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSUIPresentationMode</key>
-	<string>4</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
@@ -24,7 +22,6 @@
 	<string>0.1</string>
 	<key>CFBundleSignature</key>
 	<string>PhLO</string>
-        <!--only useful if your app handle urls-->
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -40,5 +37,7 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>0.1</string>
+	<key>LSUIPresentationMode</key>
+	<integer>4</integer>
 </dict>
 </plist>
