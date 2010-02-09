@@ -4,13 +4,124 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<title>phylo</title>
+	
+	#from modu import assets
+	#silent $assets.activate_jquery($req)
+	
 	<style type="text/css">@import '/css/styles.css';</style>
+	
+	<style type="text/css">
+	*, html, body {
+		font-size: 36px;
+	}
+	#area1,
+	#area2 {
+		float:left;
+	}
+	#area3{
+		clear:both;
+	}
+	
+	.selected {
+		background-color: #000;
+		color: #fff;
+	}
+	</style>
+	
+	$header_content
+	
+	<script type="text/javascript">
+	function findSelectable(origin, xDirection, yDirection){
+		var element = true;
+		var rect = origin.offset();
+		
+		// console.log('-----------\norigin is x: ' + rect.top + ', y:' + rect.left);
+		
+		var x = 0;
+		var y = 0;
+		
+		if(xDirection)
+			x = xDirection > 0 ? rect.left + origin.width() : rect.left;
+		else
+			x = rect.left;// + (origin.width() / 2);
+		
+		if(yDirection)
+			y = yDirection > 0 ? rect.top + origin.height() : rect.top;
+		else
+			y = rect.top;// + (origin.height() / 2);
+		
+		// console.log('starting at x: ' + x + ', y: ' + y);
+		while(element){
+			if(xDirection)
+				x = x + (xDirection * 10);
+			if(yDirection)
+				y = y + (yDirection * 10);
+
+			element = document.elementFromPoint(x, y);
+			if(element == null || element.nodeName == 'HTML'){
+				return null;
+			}
+			else if(\$(element).hasClass('selectable') && origin.not(element).length){
+				return element;
+			}
+		}
+		return element;
+	}
+	
+	\$(document).ready(function(){
+		\$(document).keyup(function(e){
+			var selected = \$('.selected');
+			var selection = null;
+			if(e.which == 38){ //KeyboardEvent.DOM_VK_UP){
+				selection = findSelectable(selected, 0, -1);
+			}
+			else if(e.which == 40){ //KeyboardEvent.DOM_VK_DOWN){
+				selection = findSelectable(selected, 0, 1);
+			}
+			else if(e.which == 37){ //KeyboardEvent.DOM_VK_LEFT){
+				selection = findSelectable(selected, -1, 0);
+			}
+			else if(e.which == 39){ //KeyboardEvent.DOM_VK_RIGHT){
+				selection = findSelectable(selected, 1, 0);
+			}
+			
+			if(selection){
+				selected.removeClass('selected');
+				\$(selection).addClass('selected');
+			}
+		});
+	});
+	</script>
 </head>
 <body>
 
-<a href="/admin">admin</a>
-
-$content
+<div id="area1">
+	<ul>
+		<li class="selectable selected">option 1a</li>
+		<li class="selectable">option 2a</li>
+		<li class="selectable">option 3a</li>
+		<li class="selectable">option 4a</li>
+		<li class="selectable">option 5a</li>
+	</ul>
+</div>
+<div id="area2">
+	<ul>
+		<li class="selectable">option 1b</li>
+		<li class="selectable">option 2b</li>
+		<li class="selectable">option 3b</li>
+		<li class="selectable">option 4b</li>
+		<li class="selectable">option 5b</li>
+	</ul>
+</div>
+<div id="area3">
+	<ul>
+		<li class="selectable">option 1c</li>
+		<li class="selectable">option 2c</li>
+		<li class="selectable">option 3c</li>
+		<li class="selectable">option 4c</li>
+		<li class="selectable">option 5c</li>
+	</ul>
+</div>
 
 </body>
 </html>

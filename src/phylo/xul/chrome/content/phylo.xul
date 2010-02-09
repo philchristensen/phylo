@@ -11,7 +11,7 @@
 		<iframe
 			id		= "webframe"
 			flex	= "1"
-			src		= "http://localhost:8888/admin"
+			src		= "http://localhost:8888/"
 			style	= "border: 0px"
 		/>
 	</hbox>
