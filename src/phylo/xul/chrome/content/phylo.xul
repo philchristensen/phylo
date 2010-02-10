@@ -6,6 +6,7 @@
 	title		= "Phylo"
 	wait-cursor	= "false"
 	hidechrome	= "true"
+	onload		= "init()"
 	>
 	<hbox flex = "1">
 		<iframe
@@ -15,5 +16,6 @@
 			style	= "border: 0px"
 		/>
 	</hbox>
+	<script type="application/x-javascript" src="phylo.js"/>
 </window>
 <!-- type = "content-primary" -->

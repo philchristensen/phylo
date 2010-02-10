@@ -5,7 +5,7 @@
 	id			= "phylo-fullscreen-loader"
 	wait-cursor	= "false"
 	hidechrome	= "true"
-	onload		= "activateFullscreen()"
+	onload		= "init()"
 	>
 	<script type="application/x-javascript" src="fullscreen.js"/>
 </window>
