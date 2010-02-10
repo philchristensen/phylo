@@ -13,19 +13,6 @@ class Resource(resource.CheetahTemplateResource):
 		"""
 		@see: L{modu.web.resource.IContent.prepare_content()}
 		"""
-		if not(req.postpath):
-			self.set_slot('content', 'Welcome to your new project...')
-			return
-		
-		page_code = req.postpath[0]
-		
-		req.store.ensure_factory('page', page.Page, force=True)
-		p = req.store.load_one('page', {'active':1, 'url_code':page_code})
-		
-		if(p is None):
-			app.raise404(page_code)
-		
-		self.set_slot('content', p.data)
 	
 	def get_content_type(self, req):
 		"""

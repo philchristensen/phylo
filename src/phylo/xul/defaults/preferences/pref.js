@@ -1,5 +1,7 @@
-pref("toolkit.defaultChromeURI", "chrome://phylo/content/fullscreen.xul");
+pref("nglayout.debug.disable_xul_cache", true);
+pref("nglayout.debug.disable_xul_fastload", true);
 
+pref("toolkit.defaultChromeURI", "chrome://phylo/content/fullscreen.xul");
 
 pref("xpinstall.dialog.confirm", "chrome://mozapps/content/xpinstall/xpinstallConfirm.xul");
 pref("xpinstall.dialog.progress.skin", "chrome://mozapps/content/extensions/extensions.xul?type=themes");
@@ -13,11 +15,10 @@ pref("extensions.dss.switchPending", false);
 pref("extensions.ignoreMTimeChanges", false);
 pref("extensions.logging.enabled", false);
 pref("general.skins.selectedSkin", "classic/1.0");
-// NB these point at AMO
+
 pref("extensions.update.url", "chrome://mozapps/locale/extensions/extensions.properties");
 pref("extensions.getMoreExtensionsURL", "chrome://mozapps/locale/extensions/extensions.properties");
 pref("extensions.getMoreThemesURL", "chrome://mozapps/locale/extensions/extensions.properties");
-
 
 pref("browser.download.useDownloadDir", true);
 pref("browser.download.folderList", 0);
@@ -30,7 +31,7 @@ pref("browser.download.manager.closeWhenDone", true);
 pref("browser.download.manager.openDelay", 0);
 pref("browser.download.manager.focusWhenStarting", false);
 pref("browser.download.manager.flashCount", 2);
-//
+
 pref("alerts.slideIncrement", 1);
 pref("alerts.slideIncrementTime", 10);
 pref("alerts.totalOpenTime", 4000);
