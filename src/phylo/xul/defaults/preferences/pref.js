@@ -1,7 +1,10 @@
+pref("toolkit.defaultChromeURI", "chrome://phylo/content/fullscreen.xul");
+
 pref("nglayout.debug.disable_xul_cache", true);
 pref("nglayout.debug.disable_xul_fastload", true);
-
-pref("toolkit.defaultChromeURI", "chrome://phylo/content/fullscreen.xul");
+pref("browser.dom.window.dump.enabled", true);
+pref("javascript.options.showInConsole", true);
+pref("javascript.options.strict", true);
 
 pref("xpinstall.dialog.confirm", "chrome://mozapps/content/xpinstall/xpinstallConfirm.xul");
 pref("xpinstall.dialog.progress.skin", "chrome://mozapps/content/extensions/extensions.xul?type=themes");

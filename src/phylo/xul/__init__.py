@@ -14,7 +14,6 @@ def launch():
 	open_path = '/usr/bin/open'
 	app_bundle = pkg.resource_filename('phylo.xul', 'Phylo.app')
 	command = [open_path, '-a', app_bundle, '-W']
-	print ' '.join(command)
 	reactor.callLater(1, lambda: reactor.spawnProcess(LauncherProtocol(), open_path, command))
 
 class LauncherProtocol(protocol.ProcessProtocol):
