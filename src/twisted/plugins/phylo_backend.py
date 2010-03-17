@@ -1,7 +1,7 @@
 # phylo
 # Copyright (C) 2010 Phil Christensen
 #
-# $Id$
+# $Id: phylo_frontend.py 1275 2010-02-08 18:15:45Z phil $
 
 import os, sys
 
@@ -11,29 +11,26 @@ from twisted.python import usage, log
 from twisted.plugin import IPlugin
 from twisted.application import internet, service
 from twisted.internet import reactor, protocol
-from twisted.web import server, wsgi
+from twisted.web import server
 
-from modu.web import app
+from modu import app
 from modu.persist import dbapi
 
-from phylo import xul
-
-class PhyloFrontendServiceMaker(object):
+class PhyloBackendServiceMaker(object):
 	implements(service.IServiceMaker, IPlugin)
-	tapname = "phylo-frontend"
-	description = "Run a Phylo front-end server."
+	tapname = "phylo-backend"
+	description = "Run a Phylo back-end server."
 	
 	class options(usage.Options):
 		"""
-		Implement usage parsing for the phylo-frontend plugin.
+		Implement usage parsing for the phylo-backend plugin.
 		"""
-		optParameters = [["port", "p", 8888, "Port to use for web server.", int],
+		optParameters = [["port", "p", 8887, "Port to use for web server.", int],
 						 ['interface', 'i', '', 'Interface to listen on.'],
 						 ['accesslog', 'a', None, 'Path to access log.'],
 						]
 	
 		optFlags =		[["debug-db", "d", "Turn on dbapi debugging."],
-						 ["no-xul", "X", "Don't open XUL interface."],
 						]
 	
 	def makeService(self, config):
@@ -47,9 +44,6 @@ class PhyloFrontendServiceMaker(object):
 		web_service = internet.TCPServer(config['port'], site, interface=config['interface'])
 		web_service.setServiceParent(master_service)
 		
-		if not(config['no-xul']):
-			xul.launch()
-		
 		return master_service
 
-serviceMaker = PhyloFrontendServiceMaker()
+serviceMaker = PhyloBackServiceMaker()
